@@ -350,6 +350,7 @@ nvim
 * Git
 * A working system clipboard provider
 * A Nerd Font is recommended for icons
+* Node.js and npm (required by Github Copilot)
 * `wl-clipboard` on Wayland
 
 ---
@@ -369,6 +370,7 @@ nvim
         ├── autotag.lua
         ├── bufferline.lua
         ├── completion.lua
+        ├── copilot.lua
         ├── explorer.lua
         ├── formatter.lua
         ├── git.lua

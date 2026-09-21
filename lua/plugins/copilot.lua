@@ -1,7 +1,7 @@
 return {
   {
     "github/copilot.vim",
-    event = "InsertEnter",
+    lazy = false,
 
     config = function()
       -- enable copilot by default
