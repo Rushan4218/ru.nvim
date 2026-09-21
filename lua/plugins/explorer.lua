@@ -8,6 +8,10 @@ return {
     config = function()
       local api = require("nvim-tree.api")
       require("nvim-tree").setup({
+        filters = {
+          dotfiles = false,
+          git_ignored = false
+        },
         on_attach = function(bufnr)
           api.config.mappings.default_on_attach(bufnr)
           vim.keymap.set("n", "h", api.node.navigate.parent_close, {

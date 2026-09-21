@@ -13,6 +13,7 @@ return {
 					"^node_modules/",
 					"^dist/",
 					"^%.venv/",
+          "^%.next/"
 				},
 			},
 
@@ -38,6 +39,8 @@ return {
 							"!dist/**",
 							"--glob",
 							"!.venv/**",
+              "--glob",
+              "!.next/**"
 						}
 					end,
 				},

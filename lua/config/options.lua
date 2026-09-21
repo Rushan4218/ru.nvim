@@ -15,6 +15,13 @@ vim.opt.expandtab = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
+-- sets <Esc> key to clear highlight
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+
+-- update search results as you type and heighlight search term 
+vim.opt.incsearch = true
+vim.opt.hlsearch = true
+
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
@@ -38,3 +45,11 @@ vim.o.winborder = "rounded"
 
 -- clipboard 
 vim.opt.clipboard = "unnamedplus"
+
+-- scroll starts at 8th line from the beginning/end
+vim.opt.scrolloff = 8
+
+-- command window only appears when needed
+vim.opt.cmdheight = 0
+
+
