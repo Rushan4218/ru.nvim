@@ -21,12 +21,14 @@ I previously used LazyVim, but eventually wanted more control over my editor and
 * System clipboard integration
 * Split windows open to the right/below
 * Cursor line highlighting
+* Scroll offset for comfortable navigation
 
 ### UI
 
 * One Dark Pro
 * Bufferline
 * Nvim-tree file explorer
+* Indent guides with current-scope highlighting
 * Rounded floating windows
 * LSP diagnostics integrated into the editor
 
@@ -34,41 +36,107 @@ I previously used LazyVim, but eventually wanted more control over my editor and
 
 * Fast completion with `blink.cmp`
 * LSP-powered completion
-* Automatic documentation in completion
+* Automatic completion documentation
 * Format on save with Conform
 * Prettier support
-* System clipboard via `unnamedplus`
-* Visual paste that preserves the existing clipboard
+* Automatic parentheses, brackets, and quotes
+* Automatic HTML/JS/TS closing tags through Treesitter
 
-### LSP
+### AI Completion
+
+[GitHub Copilot](https://github.com/github/copilot.vim) provides asynchronous inline suggestions as ghost text.
+
+Copilot is kept separate from `blink.cmp`:
+
+* `blink.cmp` handles LSP completion
+* Copilot handles AI suggestions
+* `<CR>` accepts LSP completion
+* `<Tab>` accepts Copilot suggestions
+* Copilot suggestions use a muted blue-purple color so they remain visible without competing with actual code
+
+Copilot is enabled by default once the plugin is authenticated.
+
+#### Copilot keymaps
+
+```text
+<Tab>      Accept the current suggestion
+<M-]>      Show the next suggestion
+<M-[>      Show the previous suggestion
+```
+
+#### Copilot commands
+
+Useful commands provided by `copilot.vim`:
+
+```text
+:Copilot setup       For initial setup (authentication and configuration)
+:Copilot status      Show Copilot status
+:Copilot enable      Enable Copilot
+:Copilot disable     Disable Copilot
+:Copilot toggle      Toggle Copilot
+:Copilot panel       Open the Copilot panel
+:Copilot signout     Sign out of GitHub Copilot
+```
+
+On a fresh installation, Copilot must be authenticated before suggestions can be generated.
+
+---
+
+## LSP
 
 * `nvim-lspconfig`
 * Mason
 * Mason LSP config
 * Automatic LSP setup
 * Lua language server configuration
-* Definitions, references, implementations
+* Definitions, references, and implementations
 * Rename and code actions
 * Diagnostic navigation
+* Inline diagnostic messages
+* Severity-sorted diagnostics
 
-### Treesitter
+---
+
+## Treesitter
 
 Treesitter is enabled for:
 
-* Lua
-* Vim
-* Vimdoc
+* HTML
+* CSS
 * JavaScript
 * TypeScript
 * TSX
-* JSON
+* Rust
+* C
+* C++
+* C#
+* Python
 * Bash
-* HTML
-* CSS
+* SQL
+* YAML
+* Dockerfile
+* Lua
+* Vim
+* Vimdoc
+* JSON
 * Markdown
 * Markdown inline
 
-### Search
+Docker Compose and GitHub Actions are covered by the YAML parser.
+
+Prisma is intentionally not included yet because its current parser/filetype setup needs to be verified rather than guessed.
+
+---
+
+## Indent Guides
+
+[indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) provides indentation guides throughout the editor.
+
+The current indentation scope is highlighted separately, making nested code easier to follow, especially in languages with deep HTML, JavaScript, and JSX structures.
+
+---
+
+## Search
 
 [Telescope](https://github.com/nvim-telescope/telescope.nvim) is used for:
 
@@ -83,7 +151,9 @@ Searches include hidden files while ignoring noisy directories such as:
 * `dist`
 * `.venv`
 
-### Search & Replace
+---
+
+## Search & Replace
 
 [grug-far.nvim](https://github.com/MagicDuck/grug-far.nvim) provides project and file-level search and replace with a live preview.
 
@@ -91,10 +161,12 @@ Current mappings:
 
 ```text
 <leader>R   Search and replace across project
-<leader>r  Search and replace in current file
+<leader>r   Search and replace in current file
 ```
 
-### Git
+---
+
+## Git
 
 [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) provides:
 
@@ -105,7 +177,9 @@ Current mappings:
 * Hunk preview
 * Line blame
 
-### File Explorer
+---
+
+## File Explorer
 
 [nvim-tree](https://github.com/nvim-tree/nvim-tree.lua) provides a visual sidebar file explorer.
 
@@ -125,7 +199,9 @@ R          Refresh
 
 Hidden files are shown by default.
 
-### Buffers
+---
+
+## Buffers
 
 Buffer navigation:
 
@@ -137,9 +213,9 @@ Buffer navigation:
 
 ---
 
-## Keymaps
+# Keymaps
 
-### Window navigation
+## Window navigation
 
 ```text
 <C-h>  Move to left split
@@ -148,18 +224,18 @@ Buffer navigation:
 <C-l>  Move to right split
 ```
 
-### LSP
+## LSP
 
 ```text
 gd         Go to definition
 gr         Find references
 gI         Go to implementation
 
-<leader>rn Rename
-<leader>ca Code action
+<leader>rn  Rename
+<leader>ca  Code action
 ```
 
-### Diagnostics
+## Diagnostics
 
 ```text
 [d         Previous diagnostic
@@ -167,7 +243,7 @@ gI         Go to implementation
 <leader>d  Show diagnostic
 ```
 
-### Telescope
+## Telescope
 
 ```text
 <leader><leader>  Find files
@@ -175,20 +251,35 @@ gI         Go to implementation
 <leader>bb        Find buffers
 ```
 
-### Splits
+## Search & Replace
+
+```text
+<leader>R   Project search and replace
+<leader>r   Current-file search and replace
+```
+
+## Splits
 
 ```text
 <leader>|  Vertical split
 <leader>-  Horizontal split
 ```
 
-### Formatting
+## Buffers
 
 ```text
-<C-S-i>  Format buffer
+<S-l>       Next buffer
+<S-h>       Previous buffer
+<leader>bd  Delete buffer
 ```
 
-### Git
+## Formatting
+
+```text
+<C-S-i>  Format code in the current buffer
+```
+
+## Git
 
 ```text
 [c         Previous hunk
@@ -200,7 +291,32 @@ gI         Go to implementation
 <leader>hb  Blame line
 ```
 
-### Clipboard
+## Copilot
+
+```text
+<Tab>      Accept suggestion
+<M-]>      Next suggestion
+<M-[>      Previous suggestion
+```
+
+## File Explorer
+
+```text
+<leader>e  Toggle file explorer
+
+h          Collapse directory
+l          Expand directory / open file
+m          Move file
+r          Rename
+H          Toggle hidden files
+a          Create file/directory
+d          Delete
+R          Refresh
+```
+
+---
+
+## Clipboard
 
 System clipboard integration is enabled through:
 
@@ -208,7 +324,7 @@ System clipboard integration is enabled through:
 vim.opt.clipboard = "unnamedplus"
 ```
 
-Visual paste is configured so that replacing a selection does not overwrite the existing clipboard contents.
+On Wayland, `wl-clipboard` provides the clipboard integration.
 
 ---
 
@@ -234,8 +350,8 @@ nvim
 * Git
 * A working system clipboard provider
 * A Nerd Font is recommended for icons
-
-On Wayland, `wl-clipboard` provides the system clipboard integration.
+* Node.js and npm (required by Github Copilot)
+* `wl-clipboard` on Wayland
 
 ---
 
@@ -251,11 +367,14 @@ On Wayland, `wl-clipboard` provides the system clipboard integration.
     │   ├── keymaps.lua
     │   └── options.lua
     └── plugins/
+        ├── autotag.lua
         ├── bufferline.lua
         ├── completion.lua
+        ├── copilot.lua
         ├── explorer.lua
         ├── formatter.lua
         ├── git.lua
+        ├── indentguide.lua
         ├── lsp.lua
         ├── replace.lua
         ├── telescope.lua
@@ -290,7 +409,7 @@ It's to build an editor that feels right because I understand why every piece is
 
 ## Things intentionally avoided
 
-Some popular plugins/features are intentionally not part of this setup.
+Some popular plugins and approaches are intentionally not part of this setup.
 
 For example:
 
@@ -308,3 +427,4 @@ If something can be solved cleanly with a few lines of native Lua, that's usuall
 The configuration is intentionally evolving through actual use rather than a predefined checklist.
 
 Potential additions will be driven by real workflow problems rather than by trying to recreate a "complete" Neovim setup.
+
