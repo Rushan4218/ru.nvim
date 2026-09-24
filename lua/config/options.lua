@@ -53,3 +53,15 @@ vim.opt.scrolloff = 8
 vim.opt.cmdheight = 0
 
 
+-- copilot status
+vim.api.nvim_set_hl(0, "CopilotStatus", { fg = "#8FA7D6" })
+
+function _G.copilot_status()
+  if vim.fn["copilot#Enabled"]() == 1 then
+    return "%#CopilotStatus#%*"
+  else
+    return ""
+  end
+end
+
+vim.o.statusline = "%f %m %= %{%v:lua.copilot_status()%}"

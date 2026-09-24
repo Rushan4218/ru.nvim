@@ -7,22 +7,18 @@ return {
 
 		opts = {
 			defaults = {
-				-- ignores directories with these patterns
 				file_ignore_patterns = {
 					"^%.git/",
-					"^node_modules/",
-					"^dist/",
-					"^%.venv/",
-          "^%.next/"
+					"node_modules/",
+					"dist/",
+					"%.venv/",
+					"%.next/",
 				},
 			},
 
 			pickers = {
 				find_files = {
-					-- shows hidden files in the picker
 					hidden = true,
-
-					-- shows git ignored files in the picker (eg: .env)
 					no_ignore = true,
 				},
 
@@ -34,13 +30,13 @@ return {
 							"--glob",
 							"!.git/**",
 							"--glob",
-							"!node_modules/**",
+							"!**/node_modules/**",
 							"--glob",
-							"!dist/**",
+							"!**/dist/**",
 							"--glob",
-							"!.venv/**",
-              "--glob",
-              "!.next/**"
+							"!**/.venv/**",
+							"--glob",
+							"!**/.next/**",
 						}
 					end,
 				},
