@@ -1,5 +1,6 @@
 require("config.options")
 require("config.keymaps")
+require("config.terminal")
 
 -- path where lazy vim should live
 -- this would be somewhere like `.local/share/nvim/lazy/lazy.nvim`

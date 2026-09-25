@@ -64,4 +64,7 @@ function _G.copilot_status()
   end
 end
 
+-- set statusline to always be visible
+vim.opt.laststatus = 3
+-- set statusline to show file name, modified status, and copilot status
 vim.o.statusline = "%f %m %= %{%v:lua.copilot_status()%}"
