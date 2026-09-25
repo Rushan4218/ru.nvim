@@ -68,3 +68,15 @@ end
 vim.opt.laststatus = 3
 -- set statusline to show file name, modified status, and copilot status
 vim.o.statusline = "%f %m %= %{%v:lua.copilot_status()%}"
+
+-- make cursor in terminal thinner while in insert mode
+vim.opt.guicursor:append("t:ver25")
+
+-- automatically enter insert mode when opening a terminal 
+vim.api.nvim_create_autocmd("WinEnter", {
+  callback = function()
+    if vim.bo.buftype == "terminal" then
+      vim.cmd("startinsert")
+    end
+  end,
+})
