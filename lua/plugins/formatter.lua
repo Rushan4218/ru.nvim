@@ -15,6 +15,8 @@ return {
         html = { "prettier" },
         markdown = { "prettier" },
         yaml = { "prettier" },
+        c = { "clangformat" },
+        cpp = { "clangformat" },
       },
 
       format_on_save = {
